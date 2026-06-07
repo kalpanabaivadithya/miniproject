@@ -30,13 +30,18 @@ if not st.session_state.logged_in:
 
     CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID"
 
-google_login_url = (
-    f"https://accounts.google.com/o/oauth2/v2/auth"
-    f"?client_id={CLIENT_ID}"
-    f"&redirect_uri=http://localhost:8501"
-    f"&response_type=code"
-    f"&scope=openid%20email%20profile"
-)
+    google_login_url = (
+        f"https://accounts.google.com/o/oauth2/v2/auth"
+        f"?client_id={CLIENT_ID}"
+        f"&redirect_uri=http://localhost:8501"
+        f"&response_type=code"
+        f"&scope=openid%20email%20profile"
+    )
+
+    st.link_button(
+        "Continue with Google",
+        google_login_url
+    )
 
 # ------------------------
 # DASHBOARD
