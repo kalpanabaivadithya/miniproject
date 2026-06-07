@@ -1,4 +1,4 @@
-import streamlit as st
+ import streamlit as st
 from interview import get_response
 from auth import login
 
@@ -9,6 +9,9 @@ st.set_page_config(
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
+
+if "user" not in st.session_state:
+    st.session_state.user = ""
 
 # ------------------------
 # LOGIN PAGE
@@ -26,21 +29,8 @@ if not st.session_state.logged_in:
 
     st.markdown("---")
 
-    st.subheader("Continue with Google")
-
-    CLIENT_ID = "67391367318-i4q3rpbcud8qupuka7gjrfmil3a1f22j.apps.googleusercontent.com"
-
-    google_login_url = (
-        f"https://accounts.google.com/o/oauth2/v2/auth"
-        f"?client_id={CLIENT_ID}"
-        f"&redirect_uri=http://localhost:8501"
-        f"&response_type=code"
-        f"&scope=openid%20email%20profile"
-    )
-
-    st.link_button(
-        "Continue with Google",
-        google_login_url
+    st.info(
+        "Google Login requires complete OAuth configuration."
     )
 
 # ------------------------
@@ -56,19 +46,27 @@ else:
     )
 
     question = st.text_area(
-        "Ask Interview Question"
+        "Ask Technical or HR Interview Question"
     )
 
     if st.button("Generate Answer"):
 
-        with st.spinner("Generating..."):
+        if question.strip():
 
-            answer = get_response(question)
+            with st.spinner("Generating Answer..."):
 
-            st.markdown("### Answer")
+                answer = get_response(question)
 
-            st.write(answer)
+                st.markdown("### Answer")
+
+                st.write(answer)
+
+        else:
+            st.warning("Please enter a question.")
 
     if st.button("Logout"):
+
         st.session_state.logged_in = False
+        st.session_state.user = ""
+
         st.rerun()
