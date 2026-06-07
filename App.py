@@ -28,7 +28,7 @@ if not st.session_state.logged_in:
 
     st.subheader("Continue with Google")
 
-    CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID"
+    CLIENT_ID = "67391367318-i4q3rpbcud8qupuka7gjrfmil3a1f22j.apps.googleusercontent.com"
 
     google_login_url = (
         f"https://accounts.google.com/o/oauth2/v2/auth"
